@@ -1,0 +1,36 @@
+.main-middle-content-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  height: 60%;
+  width: 60%;
+  border-radius: 50%;
+  background: #ff793f;
+  background: -webkit-linear-gradient(top, #ff793f, #d84100);
+  background: -moz-linear-gradient(top, #ff793f, #d84100);
+  background: linear-gradient(to bottom, #ff793f, #d84100);
+  position: relative;
+  overflow: hidden;
+}
+
+.circle-shoe {
+  width: 50%;
+  height: 60%;
+  background-image: url("../../images/yeezy1-removebg.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 60% 50%;
+  background-size: 45% 45%;
+  overflow-x: visible;
+  position: absolute;
+  -webkit-transform: rotate(-15deg);
+  -moz-transform: rotate(-15deg);
+  -ms-transform: rotate(-15deg);
+  -o-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+}

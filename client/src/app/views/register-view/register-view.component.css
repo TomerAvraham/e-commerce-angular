@@ -1,0 +1,32 @@
+.register-view-container {
+  width: 100%;
+  height: 91%;
+  background-color: var(--light-grey);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.register-stepper {
+  background-color: var(--light-grey);
+  width: 60%;
+  height: 60%;
+  margin-top: 4%;
+}
+
+.mat-horizontal-content-container {
+  height: 100% !important;
+}
+.mat-horizontal-stepper-content {
+  height: 100% !important;
+  display: flex;
+}
+
+.register-first-step-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 100%;
+}

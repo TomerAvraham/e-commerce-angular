@@ -24,7 +24,8 @@ router.post("/login", async (req, res) => {
       return res.status(400).send({ message: "User not exist" });
     }
 
-    if (await bcrypt.compare(user.password, password)) {
+    const match = bcrypt.compareSync(password, user.password);
+    if (!match) {
       return res.status(400).send({ message: "Password isn't correct" });
     }
 
@@ -54,6 +55,36 @@ router.post("/register", authRegister, async (req, res) => {
 
     const token = generateToken(newUser);
     res.status(201).send({ token });
+  } catch (error) {
+    res.status(400).send({ error });
+  }
+});
+
+router.get("/emailExist/:email", async (req, res) => {
+  try {
+    const { email } = req.params;
+    const emailExists = await User.findOne({ email });
+
+    if (emailExists) {
+      res.status(200).send({ emailExists: emailExists.email });
+    } else {
+      res.status(200).send(null);
+    }
+  } catch (error) {
+    res.status(400).send({ error });
+  }
+});
+
+router.get("/IDExist/:ID", async (req, res) => {
+  try {
+    const { ID } = req.params;
+    const IDExists = await User.findOne({ ID });
+
+    if (IDExists) {
+      res.status(200).send({ IDExists: IDExists.ID });
+    } else {
+      res.status(200).send(null);
+    }
   } catch (error) {
     res.status(400).send({ error });
   }
