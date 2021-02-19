@@ -1,0 +1,17 @@
+.order-view-container {
+  width: 100%;
+  height: 91%;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--light-grey);
+}
+
+app-order-item-list {
+  width: 60%;
+  height: 100%;
+}
+
+app-form {
+  width: 40%;
+  height: 100%;
+}

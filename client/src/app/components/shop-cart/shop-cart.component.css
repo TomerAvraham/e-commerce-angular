@@ -1,0 +1,13 @@
+.shopping-cart-container {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 20px;
+}
+
+.shopping-cart-bottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}

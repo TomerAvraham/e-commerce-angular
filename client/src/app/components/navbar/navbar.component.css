@@ -1,3 +1,9 @@
 .navbar-wrapper {
   background-color: var(--white);
 }
+
+.nav-logout-btn {
+  background-color: black;
+  margin-left: auto;
+  color: aliceblue;
+}

@@ -1,18 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
-import jwt_decode from 'jwt-decode';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   ENDPOINT = 'http://localhost:5000/api/auth/';
 
-  userInfo: {};
-  isAuth: Boolean = false;
+  userInfo: Object = localStorage.getItem('access_token')
+    ? jwtDecode(localStorage.getItem('access_token'))
+    : {};
+
   loading: Boolean = false;
   error: String = '';
 
@@ -25,12 +32,15 @@ export class AuthService {
       })
       .subscribe(
         (res: any) => {
-          const user = jwtDecode(res.token);
+          localStorage.setItem('access_token', res.access_token);
+
+          const user = jwtDecode(res.access_token);
 
           this.userInfo = user;
-          this.isAuth = true;
           this.loading = false;
           this.error = '';
+
+          this.cartService.getCart();
         },
         (err) => {
           this.loading = false;
@@ -43,10 +53,9 @@ export class AuthService {
     const newUser = { ...stepOneForm, ...stepTwoForm };
     return this.http.post(this.ENDPOINT + `register`, newUser).subscribe(
       (res: any) => {
-        const user = jwtDecode(res.token);
+        const user = jwtDecode(res.access_token);
 
         this.userInfo = user;
-        this.isAuth = true;
         this.loading = false;
         this.error = '';
       },
@@ -57,11 +66,25 @@ export class AuthService {
     );
   }
 
+  logout() {
+    localStorage.clear();
+    this.userInfo = {};
+    this.router.navigate(['/']);
+  }
+
   findEmail(email: String) {
     return this.http.get(this.ENDPOINT + `emailExist/${email}`);
   }
 
   findID(ID: Number) {
     return this.http.get(this.ENDPOINT + `IDExist/${ID}`);
+  }
+
+  isLogging() {
+    return !!localStorage.getItem('access_token');
+  }
+
+  getToken() {
+    return localStorage.getItem('access_token');
   }
 }

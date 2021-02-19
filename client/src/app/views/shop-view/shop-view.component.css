@@ -1,0 +1,18 @@
+.shop-container {
+  width: 100%;
+  height: 91%;
+  background-color: var(--light-grey);
+}
+
+mat-drawer-content {
+  padding-top: 15px;
+}
+
+.shop-container > mat-drawer {
+  min-width: 450px;
+  background-color: var(--dark-grey);
+}
+
+#toggle {
+  background-color: var(--orange);
+}

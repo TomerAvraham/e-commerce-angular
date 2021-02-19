@@ -1,7 +1,7 @@
 <div class="main-login-container">
   <form
     [formGroup]="loginForm"
-    (ngSubmit)="authService.login(loginForm.value)"
+    (ngSubmit)="handleLoginSubmit()"
     class="main-login-form"
   >
     <div class="start-shopping-button">
@@ -9,9 +9,10 @@
         mat-raised-button
         color="warn"
         type="button"
-        [disabled]="!authService.isAuth"
+        [disabled]="!authService.isLogging()"
+        routerLink="/shop"
       >
-        Start Shop
+        Start Shopping
       </button>
     </div>
     <div class="login-input-group">

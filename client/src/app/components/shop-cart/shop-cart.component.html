@@ -1,0 +1,22 @@
+<div class="shopping-cart-container">
+  <button mat-raised-button (click)="cartService.deleteAllProductFromCart()">
+    Delete all Cart
+  </button>
+  <p style="color: '#fff'" *ngIf="!cartService.cart.products.length">
+    No products yet
+  </p>
+  <app-shop-cart-item
+    *ngFor="let cartItem of cartService.cart.products"
+    [product]="cartItem"
+  ></app-shop-cart-item>
+  <div class="shopping-cart-bottom">
+    <h2>Total Cart: {{ cartService.totalSum }}</h2>
+    <button
+      [disabled]="!cartService.isCartEmpty()"
+      mat-raised-button
+      routerLink="/order"
+    >
+      Order
+    </button>
+  </div>
+</div>

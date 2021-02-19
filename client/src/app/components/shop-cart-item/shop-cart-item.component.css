@@ -1,0 +1,17 @@
+.cart-item-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+  color: var(--white);
+}
+
+.cart-item-container > p > span {
+  color: var(--orange);
+}
+.cart-item-container {
+  margin: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

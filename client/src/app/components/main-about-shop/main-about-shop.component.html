@@ -1,5 +1,5 @@
-<p>main-about-shop works!</p>
+<p>Number of products {{ productService.allProducts.length }}</p>
 <p>userInfo {{ authService.userInfo | json }}</p>
-<p>isAuth {{ authService.isAuth | json }}</p>
+<p>isLogion {{ authService.isLogging() | json }}</p>
 <p>loading {{ authService.loading | json }}</p>
 <p>error {{ authService.error | json }}</p>

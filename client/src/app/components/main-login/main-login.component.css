@@ -17,6 +17,10 @@
   flex-direction: column;
 }
 
+.start-shopping-button > button {
+  width: 90%;
+}
+
 .login-input-group {
   display: flex;
   flex-direction: column;

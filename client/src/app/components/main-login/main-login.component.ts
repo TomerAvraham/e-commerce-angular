@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-main-login',
@@ -15,7 +16,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MainLoginComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    public cartService: CartService
   ) {}
 
   loginForm: FormGroup;
@@ -29,5 +31,9 @@ export class MainLoginComponent implements OnInit {
       email: this.email,
       password: this.password,
     });
+  }
+
+  handleLoginSubmit() {
+    this.authService.login(this.loginForm.value);
   }
 }

@@ -1,1 +1,18 @@
-<p>shop-view works!</p>
+<mat-drawer-container hasBackdrop="false" class="shop-container">
+  <mat-drawer mode="side" opened #drawer class="drawer">
+    <app-shop-cart></app-shop-cart>
+  </mat-drawer>
+  <mat-drawer-content>
+    <button
+      [matBadge]="cartService.amountOfProducts()"
+      matBadgeColor="primary"
+      id="toggle"
+      mat-raised-button
+      (click)="drawer.toggle()"
+    >
+      Toggle drawer
+    </button>
+    <app-shop-navbar></app-shop-navbar>
+    <app-shop-item-list></app-shop-item-list>
+  </mat-drawer-content>
+</mat-drawer-container>

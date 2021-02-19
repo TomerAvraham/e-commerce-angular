@@ -1,3 +1,11 @@
 <mat-toolbar class="navbar-wrapper">
   <span>My Application</span>
+  <button
+    class="nav-logout-btn"
+    mat-button
+    *ngIf="authService.isLogging()"
+    (click)="authService.logout()"
+  >
+    Logout
+  </button>
 </mat-toolbar>

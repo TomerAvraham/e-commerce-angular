@@ -29,9 +29,9 @@ router.post("/login", async (req, res) => {
       return res.status(400).send({ message: "Password isn't correct" });
     }
 
-    const token = generateToken(user);
+    const access_token = generateToken(user);
 
-    res.status(200).send({ token });
+    res.status(200).send({ access_token });
   } catch (error) {
     res.status(400).send({ error });
   }
@@ -53,8 +53,8 @@ router.post("/register", authRegister, async (req, res) => {
 
     await newUser.save();
 
-    const token = generateToken(newUser);
-    res.status(201).send({ token });
+    const access_token = generateToken(newUser);
+    res.status(201).send({ access_token });
   } catch (error) {
     res.status(400).send({ error });
   }
