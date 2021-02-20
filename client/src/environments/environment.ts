@@ -3,8 +3,23 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
 };
+
+export const cities = [
+  'Jerusalem',
+  'Tel Aviv',
+  'Haifa',
+  'Ashdod',
+  'Rishon LeZiyyon',
+  'Petah Tikva',
+  'Beersheba',
+  'Natanya',
+  'Holon',
+  'Bnei Brak',
+  'Rehovot',
+  'Bat Yam',
+];
 
 /*
  * For easier debugging in development mode, you can import the following file

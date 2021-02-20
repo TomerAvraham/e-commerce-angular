@@ -27,8 +27,23 @@
       </mat-form-field>
       <mat-form-field appearance="legacy">
         <mat-label>Password</mat-label>
-        <input formControlName="password" type="password" matInput />
-        <mat-icon matSuffix>lock</mat-icon>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          [type]="hidePassword ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon style="font-size: 22px">{{
+            hidePassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
         <mat-error
           *ngIf="
             password?.errors?.required && (password.dirty || password.touched)

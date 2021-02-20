@@ -20,6 +20,8 @@ export class MainLoginComponent implements OnInit {
     public cartService: CartService
   ) {}
 
+  public hidePassword: Boolean = true;
+
   loginForm: FormGroup;
 
   email = new FormControl('', [Validators.required]);

@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProductService } from './services/product.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
@@ -42,6 +43,7 @@ import { OrderViewComponent } from './views/order-view/order-view.component';
 import { OrderItemListComponent } from './components/order-item-list/order-item-list.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -63,6 +65,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     OrderItemListComponent,
     OrderItemComponent,
     OrderFormComponent,
+    HighlightDirective,
   ],
   imports: [
     BrowserModule,
@@ -82,6 +85,7 @@ import { OrderFormComponent } from './components/order-form/order-form.component
     MatTabsModule,
     FlexLayoutModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatBadgeModule,
   ],

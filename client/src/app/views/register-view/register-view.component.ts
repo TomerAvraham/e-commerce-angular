@@ -14,26 +14,15 @@ import {
   confirmPasswordMatch,
 } from '../../validators/register.validators';
 
+import { cities } from '../../../environments/environment';
+
 @Component({
   selector: 'app-register-view',
   templateUrl: './register-view.component.html',
   styleUrls: ['./register-view.component.css'],
 })
 export class RegisterViewComponent implements OnInit {
-  public cities = [
-    'Jerusalem',
-    'Tel Aviv',
-    'Haifa',
-    'Ashdod',
-    'Rishon LeZiyyon',
-    'Petah Tikva',
-    'Beersheba',
-    'Natanya',
-    'Holon',
-    'Bnei Brak',
-    'Rehovot',
-    'Bat Yam',
-  ];
+  public cities = cities;
 
   constructor(
     public formBuilder: FormBuilder,

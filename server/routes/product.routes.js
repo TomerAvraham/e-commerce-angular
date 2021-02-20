@@ -12,7 +12,7 @@ router.get("/allProducts", async (req, res) => {
   }
 });
 
-router.get("/allCategory", async (req, res) => {
+router.get("/allCategory", authJwt, async (req, res) => {
   try {
     const categories = await Category.find();
 

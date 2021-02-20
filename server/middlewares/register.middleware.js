@@ -8,6 +8,8 @@ const authRegister = async (req, res, next) => {
       last_name,
       email,
       ID,
+      city,
+      street,
       password,
       confirmPassword,
     } = req.body;
@@ -17,6 +19,8 @@ const authRegister = async (req, res, next) => {
       !last_name ||
       !email ||
       !ID ||
+      !street ||
+      !city ||
       !password ||
       !confirmPassword
     ) {

@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   ID: { type: Number, minlength: 9, unique: true },
   password: { type: String },
   city: { type: String },
-  address: { type: String },
+  street: { type: String },
   admin: { type: Boolean, default: false },
 });
 

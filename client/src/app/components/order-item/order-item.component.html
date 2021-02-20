@@ -1,1 +1,11 @@
-<p>order-item works!</p>
+<div class="order-item-container">
+  <img [src]="product.item.image" alt="product.item.name" />
+  <div class="order-item-product-info">
+    <h4 [appHighlight]="searchInputValue">
+      <span>{{ product.item.name }}</span>
+    </h4>
+    <p [appHighlight]="searchInputValue">Price: {{ product.item.price }}</p>
+  </div>
+  <p [appHighlight]="searchInputValue">Quantity: {{ product.quantity }}</p>
+  <p [appHighlight]="searchInputValue">Total Price: {{ product.totalPrice }}</p>
+</div>

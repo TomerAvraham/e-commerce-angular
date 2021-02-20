@@ -1,0 +1,22 @@
+.order-form-container {
+  width: 100%;
+  height: 100%;
+  background-color: #dfe6e9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-form-container > form {
+  height: 90%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+mat-hint {
+  cursor: pointer;
+}

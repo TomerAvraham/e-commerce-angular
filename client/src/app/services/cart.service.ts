@@ -14,10 +14,11 @@ export class CartService {
     ? JSON.parse(localStorage.getItem('cart'))
     : null;
 
+  public totalSum: Number;
+
   getCart() {
     return this.http.get(this.ENDPOINT).subscribe(
       (res: any) => {
-        console.log(res);
         this.cart = res.cart;
         this.totalSum = res.totalSum;
         localStorage.setItem('cart', JSON.stringify(res.cart));
@@ -27,8 +28,6 @@ export class CartService {
       }
     );
   }
-
-  public totalSum: Number;
 
   addProductToCart(item, quantity, totalPrice) {
     const body = { item, quantity, totalPrice, cart: this.cart._id };

@@ -1,4 +1,47 @@
-.order-item-list-container {
+.order-item-list-wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.order-item-list-container {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.back-to-shop-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 130px;
+}
+.back-to-shop-button > p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.order-item-list-header {
+  padding-left: 30px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-total-sum {
+  display: flex;
+}
+
+.order-total-sum > p {
+  font-size: 20px;
+}
+
+mark {
+  background-color: #ffdd59;
 }

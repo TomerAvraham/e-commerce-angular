@@ -16,7 +16,7 @@ export class AuthService {
 
   ENDPOINT = 'http://localhost:5000/api/auth/';
 
-  userInfo: Object = localStorage.getItem('access_token')
+  userInfo: any = localStorage.getItem('access_token')
     ? jwtDecode(localStorage.getItem('access_token'))
     : {};
 
@@ -34,7 +34,7 @@ export class AuthService {
         (res: any) => {
           localStorage.setItem('access_token', res.access_token);
 
-          const user = jwtDecode(res.access_token);
+          const user: any = jwtDecode(res.access_token);
 
           this.userInfo = user;
           this.loading = false;
@@ -53,6 +53,8 @@ export class AuthService {
     const newUser = { ...stepOneForm, ...stepTwoForm };
     return this.http.post(this.ENDPOINT + `register`, newUser).subscribe(
       (res: any) => {
+        localStorage.setItem('access_token', res.access_token);
+
         const user = jwtDecode(res.access_token);
 
         this.userInfo = user;

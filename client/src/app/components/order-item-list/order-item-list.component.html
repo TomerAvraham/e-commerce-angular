@@ -1,5 +1,33 @@
-<div class="order-item-list-container">
-  <app-order-item
-    *ngFor="let product of cartService.cart.products"
-  ></app-order-item>
+<div class="order-item-list-wrapper" mwlTextInputHighlightContainer>
+  <div class="order-item-list-header">
+    <div (click)="router.navigateByUrl('/shop')" class="back-to-shop-button">
+      <mat-icon>west</mat-icon>
+      <p>Back To Shop</p>
+    </div>
+    <div class="highligh-input-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Find</mat-label>
+        <input
+          matInput
+          placeholder="Placeholder"
+          (input)="updateSearchInputValue($event)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>Search by key word</mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="order-total-sum">
+      <p [appHighlight]="searchInputValue">Subtotal:</p>
+      <p [appHighlight]="searchInputValue">
+        {{ cartService.totalSum | number }}
+      </p>
+    </div>
+  </div>
+  <div class="order-item-list-container">
+    <app-order-item
+      *ngFor="let product of cartService.cart.products"
+      [product]="product"
+      [searchInputValue]="searchInputValue"
+    ></app-order-item>
+  </div>
 </div>

@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const authRegister = require("../middlewares/register.middleware");
 
 const generateToken = (user) => {
-  user.password = "****";
+  user.password && (user.password = "****");
   const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET);
   return token;
 };
@@ -39,7 +39,15 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", authRegister, async (req, res) => {
   try {
-    const { first_name, last_name, email, ID, password } = req.body;
+    const {
+      first_name,
+      last_name,
+      email,
+      ID,
+      password,
+      city,
+      street,
+    } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -48,6 +56,8 @@ router.post("/register", authRegister, async (req, res) => {
       last_name,
       email,
       ID,
+      city,
+      street,
       password: hashedPassword,
     });
 
@@ -86,6 +96,7 @@ router.get("/IDExist/:ID", async (req, res) => {
       res.status(200).send(null);
     }
   } catch (error) {
+    console.log(error);
     res.status(400).send({ error });
   }
 });

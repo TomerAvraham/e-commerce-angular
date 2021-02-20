@@ -106,7 +106,7 @@ router.post("/addProductToCart", authJwt, async (req, res) => {
   }
 });
 
-router.delete("/deleteCartProduct", async (req, res) => {
+router.delete("/deleteCartProduct", authJwt, async (req, res) => {
   try {
     const { productId, cartId } = req.query;
 
@@ -125,7 +125,7 @@ router.delete("/deleteCartProduct", async (req, res) => {
   }
 });
 
-router.delete("/deleteAllCartProduct", async (req, res) => {
+router.delete("/deleteAllCartProduct", authJwt, async (req, res) => {
   try {
     const { cartId } = req.query;
 
