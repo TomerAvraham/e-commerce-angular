@@ -6,8 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
 
 import { cities } from '../../../environments/environment';
+
+import { orderDateValidator } from '../../validators/order.validators';
 
 @Component({
   selector: 'app-order-form',
@@ -17,7 +20,8 @@ import { cities } from '../../../environments/environment';
 export class OrderFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    public orderService: OrderService
   ) {}
 
   public cities = cities;
@@ -28,7 +32,10 @@ export class OrderFormComponent implements OnInit {
 
   street = new FormControl('', [Validators.required]);
 
-  deliveryDate = new FormControl('', [Validators.required]);
+  deliveryDate = new FormControl('', {
+    validators: [Validators.required],
+    asyncValidators: [orderDateValidator(this.orderService)],
+  });
 
   creditCard = new FormControl('', [
     Validators.required,
@@ -55,5 +62,9 @@ export class OrderFormComponent implements OnInit {
       deliveryDate: this.deliveryDate,
       creditCard: this.creditCard,
     });
+  }
+
+  submitNewOrder() {
+    this.orderService.submitNewOrder(this.orderForm.value);
   }
 }

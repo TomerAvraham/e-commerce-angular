@@ -1,0 +1,10 @@
+<div *ngIf="orderService.success" class="order-popup-wrapper">
+  <div class="order-popup-container">
+    <h1>Order Submit Successfully</h1>
+    <p>
+      Download the recipe
+      <span (click)="handleClick()">Click Here!</span>
+    </p>
+    <button routerLink="/" mat-raised-button color="primary">CONFIRM</button>
+  </div>
+</div>

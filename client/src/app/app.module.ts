@@ -44,6 +44,7 @@ import { OrderItemListComponent } from './components/order-item-list/order-item-
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { OrderPopupComponent } from './components/order-popup/order-popup.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     OrderItemComponent,
     OrderFormComponent,
     HighlightDirective,
+    OrderPopupComponent,
   ],
   imports: [
     BrowserModule,

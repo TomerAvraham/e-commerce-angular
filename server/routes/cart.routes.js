@@ -2,18 +2,7 @@ const router = require("express").Router();
 const Cart = require("../models/cart.model");
 const CartProduct = require("../models/cartProduct.model");
 const authJwt = require("../middlewares/authJwt.middlewares");
-
-const sumCartTotalValue = (products) => {
-  let totalSum = 0;
-
-  if (!products.length) {
-    return totalSum;
-  }
-
-  products.map((product) => (totalSum = totalSum + product.totalPrice));
-
-  return totalSum;
-};
+const sumCartTotalValue = require("../helpers/sumTotal");
 
 router.get("/", authJwt, async (req, res) => {
   try {

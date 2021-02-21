@@ -1,5 +1,5 @@
 <div class="order-form-container">
-  <form [formGroup]="orderForm">
+  <form [formGroup]="orderForm" (ngSubmit)="submitNewOrder()">
     <mat-form-field appearance="legacy" (dblclick)="setCityCurrentUserValue()">
       <mat-label>Enter City</mat-label>
       <mat-select formControlName="city">
@@ -30,6 +30,13 @@
     <mat-form-field appearance="legacy">
       <mat-label>Enter delivery date</mat-label>
       <input value="" type="date" matInput formControlName="deliveryDate" />
+      <mat-error
+        *ngIf="
+          deliveryDate?.errors?.orderExistThreeTimes &&
+          (deliveryDate.dirty || deliveryDate.touched)
+        "
+        >Too much order on this date. Please pick another date.</mat-error
+      >
       <mat-error
         *ngIf="
           deliveryDate?.errors?.required &&
@@ -67,7 +74,10 @@
         >Credit Card must be at the most 20 Numbers.</mat-error
       >
     </mat-form-field>
-    <button mat-raised-button [disabled]="orderForm.invalid">ORDER</button>
+    <button type="submit" mat-raised-button [disabled]="orderForm.invalid">
+      ORDER
+    </button>
   </form>
-  <p>{{ orderForm.value | json }}</p>
+  <p>{{ deliveryDate?.errors | json }}</p>
 </div>
+<app-order-popup></app-order-popup>
