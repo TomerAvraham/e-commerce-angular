@@ -1,5 +1,9 @@
 <div class="shopping-cart-container">
-  <button mat-raised-button (click)="cartService.deleteAllProductFromCart()">
+  <button
+    [disabled]="!cartService.isCartEmpty()"
+    mat-raised-button
+    (click)="cartService.deleteAllProductFromCart()"
+  >
     Delete all Cart
   </button>
   <p style="color: '#fff'" *ngIf="!cartService.cart.products.length">

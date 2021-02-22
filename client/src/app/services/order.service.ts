@@ -13,6 +13,9 @@ export class OrderService {
   public success: Boolean = false;
   public order: String = '';
   public error: String = '';
+  public amountOfOrders: Number;
+
+  public fileUrl;
 
   submitNewOrder({ city, street, deliveryDate, creditCard }) {
     const body = {
@@ -34,19 +37,36 @@ export class OrderService {
     );
   }
 
-  downloadFile(data: File) {
-    const blob = new Blob([data], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    window.open(url);
+  createReceipt() {
+    let receipt = '';
+
+    for (const product of this.cartService.cart.products) {
+      receipt += `
+        Name: ${product.item.name}, Quantity: ${product.quantity}, TotalPrice: ${product.totalPrice}
+      `;
+    }
+
+    receipt += `
+    ----------------------------------
+      TOTAL: ${this.cartService.totalSum}
+    `;
+
+    return receipt;
   }
 
-  downloadReceipt() {
-    return (
-      this.http
-        .get(this.ENDPOINT + `receipt/${this.order}`)
-        .subscribe((res: File) => this.downloadFile(res)),
-      (error) => console.log('Error downloading the file.')
+  getNumberOfOrders() {
+    return this.http.get(this.ENDPOINT + 'countOrder').subscribe(
+      (res: any) => {
+        this.amountOfOrders = res.orderCount;
+      },
+      (err) => {
+        console.log(err);
+      }
     );
+  }
+
+  confirmOrder() {
+    this.success = false;
   }
 
   isOrderDateTaken(date: any) {

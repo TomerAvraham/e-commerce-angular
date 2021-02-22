@@ -1,31 +1,55 @@
 const router = require("express").Router();
 const Cart = require("../models/cart.model");
+const Order = require("../models/order.model");
 const CartProduct = require("../models/cartProduct.model");
 const authJwt = require("../middlewares/authJwt.middlewares");
 const sumCartTotalValue = require("../helpers/sumTotal");
+const moment = require("moment");
 
 router.get("/", authJwt, async (req, res) => {
   try {
     const userId = req.user._id;
-    const cart = await Cart.findOne({ client: userId }).populate({
-      path: "products",
-      populate: { path: "item" },
-    });
+    const cart = await Cart.findOne({ client: userId })
+      .populate({
+        path: "products",
+        populate: { path: "item" },
+      })
+      .sort({ createAt: -1 })
+      .limit(1);
 
-    if (cart === null) {
+    const totalSum = cart ? sumCartTotalValue(cart.products) : 0;
+
+    let message;
+
+    if (cart && cart.active === false) {
+      const order = await Order.findOne({ client: userId })
+        .sort({ createAt: -1 })
+        .limit(1);
+
+      message = `Your last order was at: ${moment(order.createAt).format(
+        "YYYY-MM-DD"
+      )}`;
+    } else if (cart === null) {
+      message = `Welcome, Enjoy you first shopping expires ${req.user.first_name}`;
+    } else if (cart && cart.active) {
+      message = `You have open cart form ${moment(cart.createAt).format(
+        "YYYY-MM-DD"
+      )} with Subtotal of ${totalSum}`;
+    }
+
+    if (cart === null || cart.active === false) {
       const newCart = new Cart({
         client: userId,
       });
 
       await newCart.save();
 
-      return res.status(201).send({ cart: newCart });
+      return res.status(201).send({ cart: newCart, message, totalSum });
     }
 
-    const totalSum = sumCartTotalValue(cart.products);
-
-    res.status(200).send({ cart, totalSum });
+    res.status(200).send({ cart, totalSum, message });
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 });
@@ -34,7 +58,10 @@ router.post("/addProductToCart", authJwt, async (req, res) => {
   try {
     const { item, cart, quantity, totalPrice } = req.body;
 
-    const currentCart = await Cart.findOne({ client: req.user._id }).populate({
+    const currentCart = await Cart.findOne({
+      client: req.user._id,
+      active: true,
+    }).populate({
       path: "products",
       populate: { path: "item" },
     });
@@ -56,7 +83,10 @@ router.post("/addProductToCart", authJwt, async (req, res) => {
         }
       );
 
-      const cart = await Cart.findOne({ client: req.user._id }).populate({
+      const cart = await Cart.findOne({
+        client: req.user._id,
+        active: true,
+      }).populate({
         path: "products",
         populate: { path: "item" },
       });

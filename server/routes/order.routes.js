@@ -3,9 +3,19 @@ const authJwt = require("../middlewares/authJwt.middlewares");
 const Cart = require("../models/cart.model");
 const Order = require("../models/order.model");
 const moment = require("moment");
-const sumCartTotalValue = require("../helpers/sumTotal");
 const path = require("path");
 const fs = require("fs");
+
+router.get("/countOrder", async (req, res) => {
+  try {
+    const orderCount = await Order.countDocuments();
+
+    res.status(200).send({ orderCount });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
 
 router.post("/newOrder", authJwt, async (req, res) => {
   try {
@@ -72,44 +82,5 @@ router.get(
     }
   }
 );
-
-router.get("/receipt/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const order = await Order.findOne({ _id: id }).populate({
-      path: "cart",
-      populate: { path: "products", populate: { path: "item" } },
-    });
-
-    console.log(__dirname);
-
-    let receipt = "";
-
-    for (const product of order.cart.products) {
-      receipt += `
-        Name: ${product.item.name}, Quantity: ${product.quantity}, TotalPrice: ${product.totalPrice}
-      `;
-    }
-
-    receipt += `
-    ----------------------------------
-      TOTAL: ${sumCartTotalValue(order.cart.products)}
-    `;
-
-    console.log(receipt);
-
-    fs.writeFile(`${__dirname}/../config/receipt.txt`, receipt, (err) => {
-      if (err) {
-        return res.status(500).send({ message: "Something went wrong" });
-      }
-    });
-
-    return res.sendFile(path.resolve(`${__dirname}/../config/receipt.txt`));
-  } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Some thing went wrong." });
-  }
-});
 
 module.exports = router;

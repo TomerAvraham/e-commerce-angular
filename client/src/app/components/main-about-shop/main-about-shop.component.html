@@ -1,5 +1,18 @@
-<p>Number of products {{ productService.allProducts.length }}</p>
-<p>userInfo {{ authService.userInfo | json }}</p>
-<p>isLogion {{ authService.isLogging() | json }}</p>
-<p>loading {{ authService.loading | json }}</p>
-<p>error {{ authService.error | json }}</p>
+<div class="main-about-container">
+  <div class="main-about-info">
+    <p>
+      Number of products <span>{{ productService.allProducts.length }}</span>
+    </p>
+    <p>
+      Number of order submit <span>{{ orderService.amountOfOrders }}</span>
+    </p>
+  </div>
+
+  <div class="main-about-notification-container">
+    <p *ngIf="authService.isLogging()">
+      <span>Notifications:</span>
+      <br />
+      {{ cartService.afterLoginMessage }}
+    </p>
+  </div>
+</div>

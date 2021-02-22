@@ -16,11 +16,14 @@ export class CartService {
 
   public totalSum: Number;
 
+  public afterLoginMessage: String;
+
   getCart() {
     return this.http.get(this.ENDPOINT).subscribe(
       (res: any) => {
         this.cart = res.cart;
         this.totalSum = res.totalSum;
+        this.afterLoginMessage = res.message;
         localStorage.setItem('cart', JSON.stringify(res.cart));
       },
       (err) => {

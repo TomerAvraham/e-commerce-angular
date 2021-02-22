@@ -80,4 +80,4 @@
   </form>
   <p>{{ deliveryDate?.errors | json }}</p>
 </div>
-<app-order-popup></app-order-popup>
+<app-order-popup *ngIf="orderService.success"></app-order-popup>

@@ -56,9 +56,6 @@ export class ShopItemComponent implements OnInit {
         cartService: this.cartService,
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
   }
 
   ngOnInit(): void {

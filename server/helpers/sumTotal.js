@@ -1,7 +1,7 @@
 const sumCartTotalValue = (products) => {
   let totalSum = 0;
 
-  if (!products.length) {
+  if (!products || !products.length) {
     return totalSum;
   }
 

@@ -9,9 +9,7 @@ import { ProductService } from './services/product.service';
 export class AppComponent implements OnInit {
   title = 'client';
 
-  constructor(public productService: ProductService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.productService.getAllProducts();
-  }
+  ngOnInit(): void {}
 }

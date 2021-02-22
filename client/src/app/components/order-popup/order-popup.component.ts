@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-order-popup',
@@ -8,11 +9,20 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./order-popup.component.css'],
 })
 export class OrderPopupComponent implements OnInit {
-  constructor(public router: Router, public orderService: OrderService) {}
+  public fileUrl;
 
-  ngOnInit(): void {}
+  constructor(
+    public router: Router,
+    public orderService: OrderService,
+    private sanitizer: DomSanitizer
+  ) {}
 
-  handleClick() {
-    this.orderService.downloadReceipt();
+  ngOnInit(): void {
+    const data = this.orderService.createReceipt();
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+      window.URL.createObjectURL(blob)
+    );
   }
 }
