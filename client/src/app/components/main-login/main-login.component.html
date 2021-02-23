@@ -10,7 +10,7 @@
         color="warn"
         type="button"
         [disabled]="!authService.isLogging()"
-        routerLink="/shop"
+        (click)="startShopClick()"
       >
         Start Shopping
       </button>

@@ -8,11 +8,14 @@
     </p>
   </div>
 
-  <div class="main-about-notification-container">
-    <p *ngIf="authService.isLogging()">
+  <div
+    *ngIf="authService.isLogging()"
+    class="main-about-notification-container"
+  >
+    <p>
       <span>Notifications:</span>
       <br />
-      {{ cartService.afterLoginMessage }}
+      {{ cartService.notification }}
     </p>
   </div>
 </div>

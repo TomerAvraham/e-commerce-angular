@@ -47,7 +47,7 @@ router.post("/newOrder", authJwt, async (req, res) => {
     console.log(error);
     res
       .status(500)
-      .send({ message: "Some thing went wrong. Please try again" });
+      .send({ message: "Some thing went wrong. Please try to Order again" });
   }
 });
 

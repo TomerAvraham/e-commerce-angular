@@ -18,7 +18,7 @@ router.get("/allCategory", authJwt, async (req, res) => {
 
     res.status(200).send({ categories });
   } catch (error) {
-    res.status(500).send({ error });
+    res.status(500).send({ message: "Error" });
   }
 });
 
@@ -31,7 +31,7 @@ router.get("/productsByCategory/:categoryId", authJwt, async (req, res) => {
 
     res.status(200).send({ products });
   } catch (error) {
-    res.status(500).send({ error });
+    res.status(500).send({ message: "Error" });
   }
 });
 
@@ -46,7 +46,7 @@ router.post("/category", authJwt, async (req, res) => {
 
     res.status(201).send({ newCategory });
   } catch (error) {
-    res.status(500).send({ error });
+    res.status(500).send({ message: "Error" });
   }
 });
 
@@ -65,7 +65,7 @@ router.post("/addProduct", authJwt, async (req, res) => {
 
     res.status(201).send({ newProduct });
   } catch (error) {
-    res.status(500).send({ error });
+    res.status(500).send({ message: "Error" });
   }
 });
 

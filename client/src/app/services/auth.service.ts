@@ -2,7 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwtDecode from 'jwt-decode';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { CartService } from './cart.service';
+import { SnackBarService } from './snack-bar.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +14,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private snackBar: SnackBarService
   ) {}
 
   ENDPOINT = 'http://localhost:5000/api/auth/';
@@ -33,6 +37,7 @@ export class AuthService {
       .subscribe(
         (res: any) => {
           localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('refresh_token', res.refresh_token);
 
           const user: any = jwtDecode(res.access_token);
 
@@ -40,11 +45,13 @@ export class AuthService {
           this.loading = false;
           this.error = '';
 
-          this.cartService.getCart();
+          this.cartService.getNotifications();
         },
         (err) => {
+          console.log(err);
           this.loading = false;
           this.error = err.error.message;
+          this.snackBar.openSnackBar(`${this.error}`, 'OK');
         }
       );
   }
@@ -54,6 +61,7 @@ export class AuthService {
     return this.http.post(this.ENDPOINT + `register`, newUser).subscribe(
       (res: any) => {
         localStorage.setItem('access_token', res.access_token);
+        localStorage.setItem('refresh_token', res.refresh_token);
 
         const user = jwtDecode(res.access_token);
 
@@ -64,6 +72,7 @@ export class AuthService {
       (err) => {
         this.loading = false;
         this.error = err.error.message;
+        this.snackBar.openSnackBar(`${this.error}`, 'OK');
       }
     );
   }
@@ -86,7 +95,26 @@ export class AuthService {
     return !!localStorage.getItem('access_token');
   }
 
-  getToken() {
+  getAccessToken() {
     return localStorage.getItem('access_token');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refresh_token');
+  }
+
+  requestAccessToken() {
+    const body = { refreshToken: this.getRefreshToken() };
+    return this.http.post(this.ENDPOINT + `refresh`, body);
+  }
+
+  isAccessTokenExpired() {
+    const helper = new JwtHelperService();
+    return helper.isTokenExpired(this.getAccessToken());
+  }
+
+  isRefreshTokenExpired() {
+    const helper = new JwtHelperService();
+    return helper.isTokenExpired(this.getRefreshToken());
   }
 }

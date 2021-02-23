@@ -1,12 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartService } from './cart.service';
+import { SnackBarService } from './snack-bar.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpClient, public cartService: CartService) {}
+  constructor(
+    private http: HttpClient,
+    public cartService: CartService,
+    private snackBar: SnackBarService
+  ) {}
 
   private ENDPOINT: String = 'http://localhost:5000/api/order/';
 
@@ -33,6 +38,7 @@ export class OrderService {
       },
       (err) => {
         console.log(err);
+        this.snackBar.openSnackBar(`${err.message}`, '');
       }
     );
   }
@@ -61,6 +67,7 @@ export class OrderService {
       },
       (err) => {
         console.log(err);
+        this.snackBar.openSnackBar(`${err.message}`, '');
       }
     );
   }

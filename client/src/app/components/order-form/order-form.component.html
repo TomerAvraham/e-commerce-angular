@@ -73,6 +73,13 @@
         "
         >Credit Card must be at the most 20 Numbers.</mat-error
       >
+      <mat-error
+        *ngIf="
+          creditCard?.errors?.pattern &&
+          (creditCard.dirty || creditCard.touched)
+        "
+        >Credit Card contain numbers only.</mat-error
+      >
     </mat-form-field>
     <button type="submit" mat-raised-button [disabled]="orderForm.invalid">
       ORDER

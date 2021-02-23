@@ -35,6 +35,7 @@ import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProductService } from './services/product.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
@@ -90,6 +91,7 @@ import { OrderPopupComponent } from './components/order-popup/order-popup.compon
     MatDatepickerModule,
     MatDialogModule,
     MatBadgeModule,
+    MatSnackBarModule,
   ],
   providers: [
     AuthService,

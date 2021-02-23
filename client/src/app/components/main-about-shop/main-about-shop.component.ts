@@ -21,7 +21,7 @@ export class MainAboutShopComponent implements OnInit {
     this.productService.getAllProducts();
     this.orderService.getNumberOfOrders();
     if (this.authService.isLogging()) {
-      this.cartService.getCart();
+      this.cartService.getNotifications();
     }
   }
 }

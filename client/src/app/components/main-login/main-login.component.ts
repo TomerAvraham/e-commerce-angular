@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -17,7 +18,8 @@ export class MainLoginComponent implements OnInit {
   constructor(
     public formBuilder: FormBuilder,
     public authService: AuthService,
-    public cartService: CartService
+    public cartService: CartService,
+    private router: Router
   ) {}
 
   public hidePassword: Boolean = true;
@@ -33,6 +35,11 @@ export class MainLoginComponent implements OnInit {
       email: this.email,
       password: this.password,
     });
+  }
+
+  startShopClick() {
+    this.cartService.getCart();
+    this.router.navigate(['/shop']);
   }
 
   handleLoginSubmit() {

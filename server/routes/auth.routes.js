@@ -4,9 +4,18 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const authRegister = require("../middlewares/register.middleware");
 
-const generateToken = (user) => {
+const generateAccessToken = (user) => {
   user.password && (user.password = "****");
-  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET);
+  const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "10sec",
+  });
+  return token;
+};
+
+const generateRefreshToken = (userId) => {
+  const token = jwt.sign({ userId }, process.env.REFRESH_TOKEN_SECRET, {
+    expiresIn: "1year",
+  });
   return token;
 };
 
@@ -29,11 +38,12 @@ router.post("/login", async (req, res) => {
       return res.status(400).send({ message: "Password isn't correct" });
     }
 
-    const access_token = generateToken(user);
+    const access_token = generateAccessToken(user);
+    const refresh_token = generateRefreshToken(user._id);
 
-    res.status(200).send({ access_token });
+    res.status(200).send({ access_token, refresh_token });
   } catch (error) {
-    res.status(400).send({ error });
+    res.status(500).send({ message: "Server down" });
   }
 });
 
@@ -63,8 +73,10 @@ router.post("/register", authRegister, async (req, res) => {
 
     await newUser.save();
 
-    const access_token = generateToken(newUser);
-    res.status(201).send({ access_token });
+    const access_token = generateAccessToken(newUser);
+    const refresh_token = generateRefreshToken(newUser._id);
+
+    res.status(201).send({ access_token, refresh_token });
   } catch (error) {
     res.status(400).send({ error });
   }
@@ -98,6 +110,47 @@ router.get("/IDExist/:ID", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).send({ error });
+  }
+});
+
+router.post("/refresh", async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) {
+      return res.status(403).send({ message: "No token provided" });
+    }
+
+    jwt.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET,
+      async (err, decoded) => {
+        try {
+          const user = await User.findOne({ _id: decoded.userId });
+
+          if (err) {
+            return res.status(403).send({ message: "Login again please" });
+          }
+
+          if (!user) {
+            return res
+              .status(403)
+              .send({ message: "User doesn't exist any more." });
+          }
+
+          const access_token = generateAccessToken(user);
+
+          return res
+            .status(200)
+            .send({ access_token, refresh_token: refreshToken });
+        } catch (error) {
+          console.log(error);
+          res.status(403).send({ message: "Login again please" });
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(403).send({ message: "Login again please" });
   }
 });
 

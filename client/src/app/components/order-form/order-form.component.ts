@@ -39,6 +39,7 @@ export class OrderFormComponent implements OnInit {
 
   creditCard = new FormControl('', [
     Validators.required,
+    Validators.pattern('^[0-9]*$'),
     Validators.minLength(10),
     Validators.maxLength(20),
   ]);

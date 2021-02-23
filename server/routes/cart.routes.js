@@ -19,6 +19,35 @@ router.get("/", authJwt, async (req, res) => {
 
     const totalSum = cart ? sumCartTotalValue(cart.products) : 0;
 
+    if (cart === null || cart.active === false) {
+      const newCart = new Cart({
+        client: userId,
+      });
+
+      await newCart.save();
+
+      return res.status(201).send({ cart: newCart, totalSum });
+    }
+
+    res.status(200).send({ cart, totalSum });
+  } catch (error) {
+    res.status(500).send({ message: "Something went wrong with your cart." });
+  }
+});
+
+router.get("/notification", authJwt, async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const cart = await Cart.findOne({ client: userId })
+      .populate({
+        path: "products",
+        populate: { path: "item" },
+      })
+      .sort({ createAt: -1 })
+      .limit(1);
+
+    const totalSum = cart ? sumCartTotalValue(cart.products) : 0;
+
     let message;
 
     if (cart && cart.active === false) {
@@ -37,20 +66,10 @@ router.get("/", authJwt, async (req, res) => {
       )} with Subtotal of ${totalSum}`;
     }
 
-    if (cart === null || cart.active === false) {
-      const newCart = new Cart({
-        client: userId,
-      });
-
-      await newCart.save();
-
-      return res.status(201).send({ cart: newCart, message, totalSum });
-    }
-
-    res.status(200).send({ cart, totalSum, message });
+    res.status(200).send({ notification: message });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error);
+    res.status(500).send({ message: "Something went wrong with notification" });
   }
 });
 
@@ -121,7 +140,9 @@ router.post("/addProductToCart", authJwt, async (req, res) => {
     res.status(201).send({ cart: newCart, totalSum });
   } catch (error) {
     console.log(error);
-    res.status(500).send(error);
+    res
+      .status(500)
+      .send({ message: "Ops, something want wrong to add product to cart." });
   }
 });
 
