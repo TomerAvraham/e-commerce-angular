@@ -35,17 +35,19 @@ import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProductService } from './services/product.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
-import { ShopCartItemComponent } from './components/shop-cart-item/shop-cart-item.component';
 import { OrderViewComponent } from './views/order-view/order-view.component';
 import { OrderItemListComponent } from './components/order-item-list/order-item-list.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
 import { OrderFormComponent } from './components/order-form/order-form.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { OrderPopupComponent } from './components/order-popup/order-popup.component';
+import { MatTableModule } from '@angular/material/table';
+import { AdminEditPanelComponent } from './components/admin-edit-panel/admin-edit-panel.component';
 
 @NgModule({
   declarations: [
@@ -62,13 +64,13 @@ import { OrderPopupComponent } from './components/order-popup/order-popup.compon
     ShopNavbarComponent,
     ShopItemListComponent,
     ItemAmountPopup,
-    ShopCartItemComponent,
     OrderViewComponent,
     OrderItemListComponent,
     OrderItemComponent,
     OrderFormComponent,
     HighlightDirective,
     OrderPopupComponent,
+    AdminEditPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,7 @@ import { OrderPopupComponent } from './components/order-popup/order-popup.compon
     MatSidenavModule,
     MatTabsModule,
     FlexLayoutModule,
+    MatTableModule,
     MatCardModule,
     MatDatepickerModule,
     MatDialogModule,

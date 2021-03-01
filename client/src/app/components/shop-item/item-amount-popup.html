@@ -1,21 +1,25 @@
 <div mat-dialog-content class="popup-container">
-  <h4 mat-dialog-title>{{ data.product.name }}</h4>
-  <div class="popup-pick-amount-container">
-    <button (click)="data.decrescAmount()">dec</button>
-    <h1>{{data.amount}}</h1>
-    <button (click)="data.increaseAmount()">inc</button>
+  <div class="popup-title">
+    <h1 mat-dialog-title>{{ data.product.name }}</h1>
   </div>
-  <h3>
-    Total Price:
-    <br />
-    {{ data.totalPrice }}
-  </h3>
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="data.addProductToCart()"
-    mat-dialog-close
-  >
-    Add To Cart
-  </button>
+  <div class="popup-pick-amount-container">
+    <button mat-icon-button (click)="data.decrescAmount()">
+      <mat-icon class="counter-icons">remove</mat-icon>
+    </button>
+    <h1>{{data.amount}}</h1>
+    <button mat-icon-button (click)="data.increaseAmount()">
+      <mat-icon class="counter-icons">add</mat-icon>
+    </button>
+  </div>
+  <div class="popup-content">
+    <h3>Total Price: {{ data.totalPrice }}$</h3>
+    <button
+      mat-raised-button
+      class="popup-add-to-cart-button"
+      (click)="data.addProductToCart()"
+      mat-dialog-close
+    >
+      Add To Cart
+    </button>
+  </div>
 </div>

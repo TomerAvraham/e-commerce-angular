@@ -1,8 +1,10 @@
 :root {
   --white: rgb(255, 255, 255);
-  --orange: #fa8231;
+  --orange: #f97136;
   --light-grey: #f8f8f8;
-  --dark-grey: #3e3e3e;
+  --dark-grey: #2f2b2a;
+  --silver: #bdc3c7;
+  --light-blue: #b0d2db;
 }
 
 html,

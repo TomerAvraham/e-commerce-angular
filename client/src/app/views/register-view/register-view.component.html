@@ -1,171 +1,198 @@
-<div class="register-view-container">
-  <mat-horizontal-stepper [linear]="false" class="register-stepper" #stepper>
-    <mat-step [stepControl]="registerFormFirstStep">
-      <form
-        [formGroup]="registerFormFirstStep"
-        class="register-first-step-form"
-      >
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field hintLabel="9 characters">
-          <mat-label>ID</mat-label>
-          <input #idInput matInput formControlName="ID" type="text" />
-          <mat-hint align="end">{{ idInput.value?.length || 0 }}/9</mat-hint>
-          <mat-error *ngIf="IDExist.errors?.IDExists">
-            This ID is already been used.
-          </mat-error>
-
-          <mat-error
-            *ngIf="IDExist.errors?.minlength || IDExist.errors?.maxlength"
+<div class="register-view-wrapper">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path
+      fill="#f97136"
+      fill-opacity="1"
+      d="M0,320L48,282.7C96,245,192,171,288,149.3C384,128,480,160,576,154.7C672,149,768,107,864,85.3C960,64,1056,64,1152,64C1248,64,1344,64,1392,64L1440,64L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+    ></path>
+  </svg>
+  <div class="register-view-container">
+    <div class="register-left-container">
+      <img src="./registerPic-removebg-preview.png" alt="shoe" />
+    </div>
+    <div class="register-stepper-container">
+      <mat-vertical-stepper linear="true" class="register-stepper" #stepper>
+        <mat-step [stepControl]="registerFormFirstStep">
+          <form
+            [formGroup]="registerFormFirstStep"
+            class="register-first-step-form"
           >
-            ID must be 9 Numbers.
-          </mat-error>
+            <ng-template matStepLabel
+              >Welcome, You are 2 minutes from shopping</ng-template
+            >
+            <mat-form-field hintLabel="9 characters">
+              <mat-label>ID</mat-label>
+              <input #idInput matInput formControlName="ID" type="text" />
+              <mat-hint align="end"
+                >{{ idInput.value?.length || 0 }}/9</mat-hint
+              >
+              <mat-error *ngIf="IDExist.errors?.IDExists">
+                This ID is already been used.
+              </mat-error>
 
-          <mat-error *ngIf="IDExist.errors?.pattern">
-            ID must contain Numbers only.
-          </mat-error>
+              <mat-error
+                *ngIf="IDExist.errors?.minlength || IDExist.errors?.maxlength"
+              >
+                ID must be 9 Numbers.
+              </mat-error>
 
-          <mat-error *ngIf="IDExist.errors?.required">
-            ID is required.
-          </mat-error>
-        </mat-form-field>
+              <mat-error *ngIf="IDExist.errors?.pattern">
+                ID must contain Numbers only.
+              </mat-error>
 
-        <mat-form-field>
-          <mat-label>Email</mat-label>
-          <input type="text" matInput formControlName="email" email />
+              <mat-error *ngIf="IDExist.errors?.required">
+                ID is required.
+              </mat-error>
+            </mat-form-field>
 
-          <mat-error *ngIf="emailExist.errors?.emailExists">
-            This Email is already been used.
-          </mat-error>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input type="text" matInput formControlName="email" email />
 
-          <mat-error *ngIf="emailExist.errors?.email">
-            Must be valid email address.
-          </mat-error>
+              <mat-error *ngIf="emailExist.errors?.emailExists">
+                This Email is already been used.
+              </mat-error>
 
-          <mat-error *ngIf="emailExist.errors?.required">
-            Email is required.
-          </mat-error>
-        </mat-form-field>
+              <mat-error *ngIf="emailExist.errors?.email">
+                Must be valid email address.
+              </mat-error>
 
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input type="password" matInput formControlName="password" />
+              <mat-error *ngIf="emailExist.errors?.required">
+                Email is required.
+              </mat-error>
+            </mat-form-field>
 
-          <mat-error
-            *ngIf="registerFormFirstStep.controls.password.errors?.required"
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input type="password" matInput formControlName="password" />
+
+              <mat-error
+                *ngIf="registerFormFirstStep.controls.password.errors?.required"
+              >
+                Password is required.
+              </mat-error>
+
+              <mat-error
+                *ngIf="
+                  registerFormFirstStep.controls.password.errors?.minlength
+                "
+              >
+                Password Must be at least 6 characters.
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Confirm Password</mat-label>
+              <input
+                type="password"
+                matInput
+                formControlName="confirmPassword"
+              />
+
+              <mat-error
+                *ngIf="registerFormFirstStep.controls.password.errors?.required"
+              >
+                Confirm Password is required.
+              </mat-error>
+
+              <mat-error
+                *ngIf="
+                  registerFormFirstStep.controls.confirmPassword.hasError(
+                    'confirmedValidator'
+                  )
+                "
+              >
+                Passwords not match
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button
+                mat-raised-button
+                matStepperNext
+                [disabled]="registerFormFirstStep.invalid"
+                class="register-button"
+              >
+                Next
+              </button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="registerFormSecondStep" label="Almost Done">
+          <form
+            [formGroup]="registerFormSecondStep"
+            class="register-first-step-form"
+            (ngSubmit)="handleRegisterSubmit()"
           >
-            Password is required.
-          </mat-error>
+            <mat-form-field>
+              <mat-label>City</mat-label>
+              <mat-select formControlName="city">
+                <mat-option *ngFor="let city of cities" [value]="city">
+                  {{ city }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="registerFormSecondStep.controls.city.errors?.required"
+              >
+                City is required.
+              </mat-error>
+            </mat-form-field>
 
-          <mat-error
-            *ngIf="registerFormFirstStep.controls.password.errors?.minlength"
-          >
-            Password Must be at least 6 characters.
-          </mat-error>
-        </mat-form-field>
+            <mat-form-field>
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="street" />
+              <mat-error
+                *ngIf="registerFormSecondStep.controls.street.errors?.required"
+              >
+                Street is required.
+              </mat-error>
+            </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Confirm Password</mat-label>
-          <input type="password" matInput formControlName="confirmPassword" />
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="first_name" />
+              <mat-error
+                *ngIf="
+                  registerFormSecondStep.controls.first_name.errors?.required
+                "
+              >
+                First name is required.
+              </mat-error>
+            </mat-form-field>
 
-          <mat-error
-            *ngIf="registerFormFirstStep.controls.password.errors?.required"
-          >
-            Confirm Password is required.
-          </mat-error>
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="last_name" />
+              <mat-error
+                *ngIf="
+                  registerFormSecondStep.controls.last_name.errors?.required
+                "
+              >
+                Last name is required.
+              </mat-error>
+            </mat-form-field>
 
-          <mat-error
-            *ngIf="
-              registerFormFirstStep.controls.confirmPassword.hasError(
-                'confirmedValidator'
-              )
-            "
-          >
-            Passwords not match
-          </mat-error>
-        </mat-form-field>
-
-        <div>
-          <button
-            mat-raised-button
-            matStepperNext
-            [disabled]="registerFormFirstStep.invalid"
-          >
-            Next
-          </button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step
-      [stepControl]="registerFormSecondStep"
-      label="Fill out your address"
-    >
-      <form
-        [formGroup]="registerFormSecondStep"
-        class="register-first-step-form"
-        (ngSubmit)="handleRegisterSubmit()"
-      >
-        <mat-form-field>
-          <mat-label>City</mat-label>
-          <mat-select formControlName="city" required>
-            <mat-option *ngFor="let city of cities" [value]="city">
-              {{ city }}
-            </mat-option>
-          </mat-select>
-          <mat-error
-            *ngIf="registerFormSecondStep.controls.city.errors?.required"
-          >
-            City is required.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Street</mat-label>
-          <input matInput formControlName="street" required />
-          <mat-error
-            *ngIf="registerFormSecondStep.controls.street.errors?.required"
-          >
-            Street is required.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="first_name" required />
-          <mat-error
-            *ngIf="registerFormSecondStep.controls.first_name.errors?.required"
-          >
-            First name is required.
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="last_name" required />
-          <mat-error
-            *ngIf="registerFormSecondStep.controls.last_name.errors?.required"
-          >
-            Last name is required.
-          </mat-error>
-        </mat-form-field>
-
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button
-            type="submit"
-            mat-raised-button
-            [disabled]="
-              registerFormFirstStep.invalid || registerFormSecondStep.invalid
-            "
-          >
-            Create new Account
-          </button>
-        </div>
-      </form>
-    </mat-step>
-  </mat-horizontal-stepper>
-  <p>
-    {{ registerFormFirstStep.value | json }}
-    <br />
-    {{ registerFormSecondStep.value | json }}
-  </p>
+            <div>
+              <button mat-button matStepperPrevious class="register-button">
+                Back
+              </button>
+              <button
+                type="submit"
+                mat-raised-button
+                style="margin-left: 8px"
+                class="register-button"
+                [disabled]="
+                  registerFormFirstStep.invalid ||
+                  registerFormSecondStep.invalid
+                "
+              >
+                Create Account
+              </button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-vertical-stepper>
+      <p>Already Have Account? <a routerLink="/">Click Here!</a></p>
+    </div>
+  </div>
 </div>

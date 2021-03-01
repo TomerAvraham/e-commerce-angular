@@ -1,12 +1,24 @@
 <mat-card class="mat-elevation-z4">
-  <mat-card-header>
-    <mat-card-title>{{ product.name }}</mat-card-title>
-  </mat-card-header>
-  <img mat-card-image [src]="product.image" />
+  <div class="card-image-container">
+    <img [src]="product.image" />
+  </div>
+  <mat-card-title>
+    <h1>
+      {{ product.name }}
+    </h1>
+  </mat-card-title>
   <mat-card-content>
-    <p>The Himalayas is a mountain range in Asia.</p>
+    <p>Price: {{ product.price }}$</p>
+    <mat-card-actions>
+      <button
+        (click)="isAdmin ? handleAdminClick() : openDialog()"
+        class="add-to-cart-button"
+        mat-icon-button
+      >
+        <mat-icon class="add-to-cart-icon">{{
+          isAdmin ? "create" : "add_shopping_cart"
+        }}</mat-icon>
+      </button>
+    </mat-card-actions>
   </mat-card-content>
-  <mat-card-actions>
-    <button (click)="openDialog()" mat-raised-button>BUY</button>
-  </mat-card-actions>
 </mat-card>

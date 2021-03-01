@@ -48,13 +48,13 @@ export class OrderService {
 
     for (const product of this.cartService.cart.products) {
       receipt += `
-        Name: ${product.item.name}, Quantity: ${product.quantity}, TotalPrice: ${product.totalPrice}
+        Name: ${product.item.name}, Price: ${product.item.price}$, Quantity: x${product.quantity}, TotalPrice: ${product.totalPrice}$
       `;
     }
 
     receipt += `
     ----------------------------------
-      TOTAL: ${this.cartService.totalSum}
+      TOTAL: ${this.cartService.totalSum}$
     `;
 
     return receipt;

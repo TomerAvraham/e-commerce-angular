@@ -1,26 +1,52 @@
-.register-view-container {
+.register-view-wrapper {
   width: 100%;
   height: 91%;
-  background-color: var(--light-grey);
+  position: relative;
+  background-color: var(--light-blue);
+}
+
+svg {
+  position: absolute;
+}
+
+.register-view-container {
+  width: 100%;
+  height: 85%;
+  background-color: var(--light-blue);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.register-left-container {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 170px;
+}
+
+.register-left-container > img {
+  object-fit: contain;
+  width: 420px;
+}
+
+.register-stepper-container {
+  width: 40%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  margin-top: 80px;
 }
 
 .register-stepper {
-  background-color: var(--light-grey);
+  background-color: var(--light-blue);
   width: 60%;
-  height: 60%;
+  height: 80%;
   margin-top: 4%;
-}
-
-.mat-horizontal-content-container {
-  height: 100% !important;
-}
-.mat-horizontal-stepper-content {
-  height: 100% !important;
-  display: flex;
 }
 
 .register-first-step-form {
@@ -29,4 +55,14 @@
   align-items: flex-start;
   justify-content: space-evenly;
   height: 100%;
+}
+
+.register-button {
+  border-radius: 35px;
+  background-color: var(--orange);
+  margin-top: 10px;
+}
+
+.register-button :hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }

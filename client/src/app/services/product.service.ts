@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Category } from '../interfaces/category';
 import { Product } from '../interfaces/product';
 import { SnackBarService } from './snack-bar.service';
 
@@ -11,8 +12,8 @@ export class ProductService {
 
   private ENDPOINT: String = 'http://localhost:5000/api/product/';
 
-  public activeTab;
-  public categories = [];
+  public activeTab: any = true;
+  public categories: Category[] = [];
   public products: Product[] = [];
   public allProducts: Product[] = [];
 
@@ -27,6 +28,16 @@ export class ProductService {
         this.snackBar.openSnackBar(`${err.message}`, '');
       }
     );
+  }
+
+  onClickAllProducts() {
+    this.activeTab = true;
+    if (!this.allProducts.length) {
+      this.getAllProducts();
+    } else {
+      this.products = this.allProducts;
+      return;
+    }
   }
 
   getProductByCategory(categoryId: String) {
@@ -66,5 +77,12 @@ export class ProductService {
     this.products = this.allProducts.filter((product) =>
       product.name.toUpperCase().includes(inputValue.toUpperCase())
     );
+  }
+
+  updateNewProduct(updateProduct, productId) {
+    let productIndex = this.allProducts.findIndex(
+      (product) => product._id == productId
+    );
+    productId > -1 ? (this.allProducts[productIndex] = updateProduct) : null;
   }
 }

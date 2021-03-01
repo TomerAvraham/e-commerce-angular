@@ -1,5 +1,60 @@
 mat-card {
-  width: 200px;
+  width: 303px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #f6f6f6;
+  max-width: 350px;
+  height: 430px;
+}
+
+.card-image-container {
+  width: 100%;
+  height: 220px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--silver);
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+mat-card-title {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 500;
+  padding-top: 10px;
+}
+
+mat-card-content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+mat-card-content > p {
+  font-size: 1.5rem;
+}
+
+::ng-deep .add-to-cart-icon {
+  height: 28px !important;
+  width: 30px !important;
+  font-size: 28px !important;
+}
+
+.add-to-cart-button {
+  width: 55px;
+  height: 55px;
+  background-color: var(--orange);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .popup-container {
@@ -12,12 +67,51 @@ mat-card {
 }
 
 .popup-pick-amount-container {
-  width: 100%;
+  width: 80%;
   display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 50%;
+}
+
+.popup-title {
+  width: 90%;
+  border-bottom: 1px solid var(--silver);
+}
+
+.popup-title > h1 {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.counter-icons {
+  font-size: 33px;
+}
+
+.popup-pick-amount-container > h1 {
+  font-size: 3rem;
+}
+
+.popup-content {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 
-.popup-pick-amount-container > h1 {
-  font-size: 2.5rem;
+.popup-content > h3 {
+  font-size: 1.5rem;
+}
+
+.popup-add-to-cart-button {
+  background-color: var(--orange);
+  width: 50%;
+  height: 50px;
+  color: var(--white);
+  font-size: 1.5rem;
 }

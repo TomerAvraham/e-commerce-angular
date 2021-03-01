@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { CartService } from './cart.service';
 import { SnackBarService } from './snack-bar.service';
-import { Observable } from 'rxjs';
+import { UserInfo } from '../interfaces/user-info';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +20,7 @@ export class AuthService {
 
   ENDPOINT = 'http://localhost:5000/api/auth/';
 
-  userInfo: any = localStorage.getItem('access_token')
+  userInfo: UserInfo | any = localStorage.getItem('access_token')
     ? jwtDecode(localStorage.getItem('access_token'))
     : {};
 
@@ -48,7 +48,6 @@ export class AuthService {
           this.cartService.getNotifications();
         },
         (err) => {
-          console.log(err);
           this.loading = false;
           this.error = err.error.message;
           this.snackBar.openSnackBar(`${this.error}`, 'OK');
@@ -93,6 +92,10 @@ export class AuthService {
 
   isLogging() {
     return !!localStorage.getItem('access_token');
+  }
+
+  isAdmin() {
+    return this.userInfo.user.admin;
   }
 
   getAccessToken() {

@@ -3,9 +3,9 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { switchMap, take, filter } from 'rxjs/operators';
 
 @Injectable({

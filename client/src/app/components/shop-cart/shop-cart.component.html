@@ -1,26 +1,86 @@
 <div class="shopping-cart-container">
-  <button
-    [disabled]="!cartService.isCartEmpty()"
-    mat-raised-button
-    (click)="cartService.deleteAllProductFromCart()"
-  >
-    Delete all Cart
-  </button>
-  <p style="color: '#fff'" *ngIf="!cartService.cart.products.length">
-    No products yet
-  </p>
-  <app-shop-cart-item
-    *ngFor="let cartItem of cartService.cart.products"
-    [product]="cartItem"
-  ></app-shop-cart-item>
-  <div class="shopping-cart-bottom">
-    <h2>Total Cart: {{ cartService.totalSum }}</h2>
+  <div class="cart-header">My Cart</div>
+  <div class="cart-items-container">
+    <table
+      *ngIf="cartService.isCartEmpty()"
+      style="background-color: var(--dark-grey)"
+      mat-table
+      [dataSource]="this.cartService.cart?.products"
+      class="mat-elevation-z8 cart-items-table"
+    >
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Image</th>
+        <td mat-cell class="cart-product-image-td" *matCellDef="let product">
+          <img
+            class="cart-product-image"
+            [src]="product.item.image"
+            alt="productImage"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th style="padding: 0 0 0 50px" mat-header-cell *matHeaderCellDef>
+          Name
+        </th>
+        <td mat-cell class="cart-product-name" *matCellDef="let product">
+          {{ product.item.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef>Quantity</th>
+        <td mat-cell class="cart-product-quantity" *matCellDef="let product">
+          {{ product.quantity }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalPrice">
+        <th style="padding: 0 0 0 15px" mat-header-cell *matHeaderCellDef>
+          Total
+        </th>
+        <td mat-cell *matCellDef="let product">{{ product.totalPrice }}$</td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th style="padding: 0 0 0 20px" mat-header-cell *matHeaderCellDef>
+          Delete
+        </th>
+        <td
+          mat-cell
+          class="delete-product-button"
+          *matCellDef="let product"
+          (click)="deleteFromCart(product._id)"
+        >
+          <mat-icon>clear</mat-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="shopping-cart-actions">
+    <div class="shopping-cart-actions-top">
+      <h2 class="shopping-cart-bottom-total">
+        Total Cart: {{ cartService.totalSum }}$
+      </h2>
+      <button
+        class="delete-all-button"
+        [disabled]="!cartService.isCartEmpty()"
+        (click)="cartService.deleteAllProductFromCart()"
+        mat-fab
+      >
+        <mat-icon class="delete-icon">delete</mat-icon>
+      </button>
+    </div>
     <button
+      class="checkout-button"
       [disabled]="!cartService.isCartEmpty()"
       mat-raised-button
       routerLink="/order"
     >
-      Order
+      CHECKOUT
     </button>
   </div>
 </div>

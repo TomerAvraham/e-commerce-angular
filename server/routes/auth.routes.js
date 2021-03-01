@@ -7,7 +7,7 @@ const authRegister = require("../middlewares/register.middleware");
 const generateAccessToken = (user) => {
   user.password && (user.password = "****");
   const token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "10sec",
+    expiresIn: "15min",
   });
   return token;
 };

@@ -1,17 +1,35 @@
 <mat-drawer-container hasBackdrop="false" class="shop-container">
   <mat-drawer mode="side" opened #drawer class="drawer">
-    <app-shop-cart></app-shop-cart>
+    <app-shop-cart *ngIf="!isAdmin; else adminPanel"></app-shop-cart>
+    <ng-template #adminPanel>
+      <app-admin-edit-panel
+        [product]="adminService.editProduct"
+      ></app-admin-edit-panel>
+    </ng-template>
   </mat-drawer>
   <mat-drawer-content>
-    <button
-      [matBadge]="cartService.amountOfProducts()"
-      matBadgeColor="primary"
-      id="toggle"
-      mat-raised-button
-      (click)="drawer.toggle()"
-    >
-      Toggle drawer
-    </button>
+    <div class="shop-container-header">
+      <button
+        [matBadgeHidden]="isAdmin"
+        [matBadge]="cartService.amountOfProducts()"
+        matBadgeColor="warn"
+        id="toggle"
+        mat-raised-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>{{ isAdmin ? "sync_alt" : "shopping_cart" }}</mat-icon>
+      </button>
+      <mat-form-field appearance="fill">
+        <mat-label>Search Shoe</mat-label>
+        <input
+          matInput
+          placeholder="Ultra Boost"
+          type="text"
+          (keyup)="productService.handleProductSearch($event)"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
     <app-shop-navbar></app-shop-navbar>
     <app-shop-item-list></app-shop-item-list>
   </mat-drawer-content>

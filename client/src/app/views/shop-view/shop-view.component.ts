@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from 'src/app/services/admin.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -10,10 +12,15 @@ import { ProductService } from 'src/app/services/product.service';
 export class ShopViewComponent implements OnInit {
   constructor(
     public cartService: CartService,
-    private productService: ProductService
+    public productService: ProductService,
+    private authService: AuthService,
+    public adminService: AdminService
   ) {}
+
+  public isAdmin: Boolean;
 
   ngOnInit(): void {
     this.productService.getAllProducts();
+    this.isAdmin = this.authService.isAdmin();
   }
 }

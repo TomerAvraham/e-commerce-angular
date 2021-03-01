@@ -1,9 +1,15 @@
 .navbar-wrapper {
   background-color: var(--white);
+  z-index: 999;
 }
 
 .nav-logout-btn {
   background-color: black;
   margin-left: auto;
   color: aliceblue;
+  border-radius: 35px;
+}
+
+.nav-logout-btn :hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
 }

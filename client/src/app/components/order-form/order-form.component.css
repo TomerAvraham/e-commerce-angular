@@ -20,3 +20,12 @@
 mat-hint {
   cursor: pointer;
 }
+
+.order-submit-button {
+  width: 50%;
+  height: 40px;
+  background-color: var(--dark-grey);
+  color: aliceblue;
+  font-size: 25px;
+  border-radius: 35px;
+}

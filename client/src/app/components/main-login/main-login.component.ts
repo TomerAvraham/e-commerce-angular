@@ -38,7 +38,7 @@ export class MainLoginComponent implements OnInit {
   }
 
   startShopClick() {
-    this.cartService.getCart();
+    !this.authService.isAdmin() && this.cartService.getCart();
     this.router.navigate(['/shop']);
   }
 
