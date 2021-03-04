@@ -30,6 +30,7 @@ export class AdminEditPanelComponent implements OnInit, OnChanges {
   ) {}
 
   editProductForm: FormGroup;
+  addProductForm: FormGroup;
 
   _id = new FormControl('', [Validators.required]);
 
@@ -41,6 +42,25 @@ export class AdminEditPanelComponent implements OnInit, OnChanges {
 
   category = new FormControl('', [Validators.required]);
 
+  add_name = new FormControl('', [Validators.required]);
+
+  add_price = new FormControl(0, [Validators.required]);
+
+  add_image = new FormControl('', [Validators.required]);
+
+  add_category = new FormControl('', [Validators.required]);
+
+  handleUpdateProduct() {
+    this.adminService.setUpdateProduct(
+      this.editProductForm.value,
+      this.product._id
+    );
+  }
+
+  handelNewProduct() {
+    this.adminService.addNewProduct(this.addProductForm.value);
+  }
+
   ngOnInit(): void {
     this.editProductForm = this.formBuilder.group({
       _id: this._id,
@@ -48,6 +68,13 @@ export class AdminEditPanelComponent implements OnInit, OnChanges {
       price: this.price,
       image: this.image,
       category: this.category,
+    });
+
+    this.addProductForm = this.formBuilder.group({
+      name: this.add_name,
+      price: this.add_price,
+      image: this.add_image,
+      category: this.add_category,
     });
   }
 

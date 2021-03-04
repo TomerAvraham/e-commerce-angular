@@ -24,17 +24,14 @@ mat-drawer-content {
   justify-content: space-between;
 }
 
-/* input color class */
 ::ng-deep input.mat-input-element {
   color: var(--dark-grey);
 }
 
-/* Change label color on focused */
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
   color: var(--dark-grey) !important;
 }
 
-/* underline border color on focused */
 ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
   background-color: var(--dark-grey) !important;
 }

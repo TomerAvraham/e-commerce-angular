@@ -1,43 +1,97 @@
 <div class="admin-panel-wrapper">
-  <h1 *ngIf="!product; else adminContainer">Pick Product</h1>
-  <ng-template #adminContainer>
-    <div class="admin-panel-container">
-      <form [formGroup]="editProductForm" class="admin-panel-form">
-        <mat-form-field appearance="fill">
-          <mat-label>id</mat-label>
-          <input matInput formControlName="_id" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>name</mat-label>
-          <input matInput formControlName="name" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>price</mat-label>
-          <input matInput type="number" formControlName="price" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>image</mat-label>
-          <input matInput formControlName="image" />
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>Select</mat-label>
-          <mat-select formControlName="category">
-            <mat-option
-              *ngFor="let category of productService.categories"
-              [value]="category._id"
-              >{{ category.name }}</mat-option
-            >
-          </mat-select>
-        </mat-form-field>
-        <button
-          mat-raised-button
-          color="primary"
-          [disabled]="editProductForm.invalid"
-          type="submit"
-        >
-          Save
-        </button>
-      </form>
-    </div>
-  </ng-template>
+  <div class="admin-panel-header">
+    <h2>
+      {{
+        !product || adminService.isAddProductClick
+          ? "Pick/Add Product"
+          : product.name
+      }}
+    </h2>
+    <button mat-mini-fab (click)="adminService.addProductClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <div class="admin-panel-container">
+    <form
+      *ngIf="product && !adminService.isAddProductClick"
+      (ngSubmit)="handleUpdateProduct()"
+      [formGroup]="editProductForm"
+      class="admin-panel-form"
+    >
+      <div class="admin-panel-image-wrapper">
+        <img [src]="image.value" [alt]="product.name" />
+      </div>
+      <mat-form-field *ngIf="!adminService.isAddProductClick" appearance="fill">
+        <mat-label>id</mat-label>
+        <input matInput formControlName="_id" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>price</mat-label>
+        <input matInput type="number" formControlName="price" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>image</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="category">
+          <mat-option
+            *ngFor="let category of productService.categories"
+            [value]="category._id"
+            >{{ category.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="editProductForm.invalid"
+        type="submit"
+      >
+        Save
+      </button>
+    </form>
+    <form
+      *ngIf="adminService.isAddProductClick"
+      (ngSubmit)="handelNewProduct()"
+      [formGroup]="addProductForm"
+      class="admin-panel-form"
+    >
+      <mat-form-field appearance="fill">
+        <mat-label>name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>price</mat-label>
+        <input matInput type="number" formControlName="price" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>image</mat-label>
+        <input matInput formControlName="image" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="category">
+          <mat-option
+            *ngFor="let category of productService.categories"
+            [value]="category._id"
+            >{{ category.name }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="addProductForm.invalid"
+        type="submit"
+      >
+        Add
+      </button>
+    </form>
+  </div>
 </div>

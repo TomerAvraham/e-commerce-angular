@@ -8,17 +8,39 @@ router.put("/update/:productId", authJwt, isAdmin, async (req, res) => {
     const { productId } = req.params;
     const { _id, name, price, image, category } = req.body;
 
-    const updateProduct = await Product.findOneAndUpdate(
+    await Product.updateOne(
       { _id: productId },
       { _id, name, price, image, category }
     );
 
-    await updateProduct.save();
+    const products = await Product.find();
 
-    res.status(200).res({ updateProduct });
+    res.status(200).send({ products });
   } catch (error) {
     console.log(error);
     res.status(400).send({ message: "Error while update product" });
+  }
+});
+
+router.post("/addProduct", authJwt, isAdmin, async (req, res) => {
+  try {
+    const { name, price, image, category } = req.body;
+
+    const newProduct = new Product({
+      name,
+      price,
+      image,
+      category,
+    });
+
+    await newProduct.save();
+
+    const products = await Product.find();
+
+    res.status(201).send({ products });
+  } catch (error) {
+    console.log(err);
+    res.status(400).send({ message: "Error while add new product" });
   }
 });
 

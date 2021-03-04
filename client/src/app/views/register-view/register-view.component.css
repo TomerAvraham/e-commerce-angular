@@ -27,9 +27,11 @@ svg {
   padding-top: 170px;
 }
 
-.register-left-container > img {
+.register-left-container > .register-image {
   object-fit: contain;
+  background-image: url("./registerPic-removebg-preview.png");
   width: 420px;
+  height: 450px;
 }
 
 .register-stepper-container {

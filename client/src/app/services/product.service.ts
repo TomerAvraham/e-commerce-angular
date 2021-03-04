@@ -79,10 +79,9 @@ export class ProductService {
     );
   }
 
-  updateNewProduct(updateProduct, productId) {
-    let productIndex = this.allProducts.findIndex(
-      (product) => product._id == productId
-    );
-    productId > -1 ? (this.allProducts[productIndex] = updateProduct) : null;
+  handleUpdateProduct(products: Product[]) {
+    this.activeTab = true;
+    this.allProducts = products;
+    this.products = products;
   }
 }

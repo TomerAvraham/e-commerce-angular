@@ -45,7 +45,11 @@ export class AuthService {
           this.loading = false;
           this.error = '';
 
-          this.cartService.getNotifications();
+          if (user.user.admin) {
+            this.router.navigate(['/shop']);
+          } else {
+            this.cartService.getNotifications();
+          }
         },
         (err) => {
           this.loading = false;
