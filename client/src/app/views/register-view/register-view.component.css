@@ -68,3 +68,8 @@ svg {
 .register-button :hover {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
+
+.have-account-link {
+  margin-right: 100px;
+  font-size: 115%;
+}

@@ -26,7 +26,7 @@ export class RegisterViewComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router
   ) {}
 

@@ -18,7 +18,7 @@
             class="register-first-step-form"
           >
             <ng-template matStepLabel
-              >Welcome, You are 2 minutes from shopping</ng-template
+              >Welcome, You are 2 steps from shopping</ng-template
             >
             <mat-form-field hintLabel="9 characters">
               <mat-label>ID</mat-label>
@@ -188,11 +188,17 @@
               >
                 Create Account
               </button>
+              <mat-spinner
+                style="padding-top: 15px"
+                *ngIf="authService.loading"
+              ></mat-spinner>
             </div>
           </form>
         </mat-step>
       </mat-vertical-stepper>
-      <p>Already Have Account? <a routerLink="/">Click Here!</a></p>
+      <p class="have-account-link">
+        Already Have Account? <a routerLink="/">Sign in!</a>
+      </p>
     </div>
   </div>
 </div>

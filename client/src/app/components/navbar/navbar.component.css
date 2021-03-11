@@ -4,12 +4,28 @@
 }
 
 .nav-logout-btn {
-  background-color: black;
+  background-color: var(--dark-grey);
   margin-left: auto;
   color: aliceblue;
   border-radius: 35px;
 }
 
-.nav-logout-btn :hover {
-  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+.nav-logout-btn:hover {
+  box-shadow: 0 0 13px rgba(33, 33, 33, 0.2);
+}
+
+.navbar-logo {
+  margin-left: 30px;
+  width: 170px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #82422e;
+}
+
+.navbar-logo > img {
+  object-fit: contain;
+  width: 120px;
+  height: 160%;
 }

@@ -6,6 +6,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { CartService } from './cart.service';
 import { SnackBarService } from './snack-bar.service';
 import { UserInfo } from '../interfaces/user-info';
+import { BASE_URL } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class AuthService {
     private snackBar: SnackBarService
   ) {}
 
-  ENDPOINT = 'http://localhost:5000/api/auth/';
+  ENDPOINT = `${BASE_URL}auth/`;
 
   userInfo: UserInfo | any = localStorage.getItem('access_token')
     ? jwtDecode(localStorage.getItem('access_token'))
@@ -61,6 +62,7 @@ export class AuthService {
 
   register(stepOneForm, stepTwoForm) {
     const newUser = { ...stepOneForm, ...stepTwoForm };
+    this.loading = true;
     return this.http.post(this.ENDPOINT + `register`, newUser).subscribe(
       (res: any) => {
         localStorage.setItem('access_token', res.access_token);

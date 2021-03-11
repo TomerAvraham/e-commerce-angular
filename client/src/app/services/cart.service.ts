@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cart } from '../interfaces/cart';
 import { SnackBarService } from './snack-bar.service';
+import { BASE_URL } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { SnackBarService } from './snack-bar.service';
 export class CartService {
   constructor(private http: HttpClient, private snackBar: SnackBarService) {}
 
-  private ENDPOINT: string = 'http://localhost:5000/api/cart/';
+  private ENDPOINT: string = `${BASE_URL}cart/`;
 
   public cart: Cart = localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))

@@ -44,10 +44,20 @@
   align-items: center;
   justify-content: space-around;
   padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.add-product-button {
+  background-color: var(--dark-grey);
 }
 
 p {
   width: 70%;
   height: auto;
   margin: 0 0;
+}
+
+.admin-submit-button {
+  background-color: var(--orange);
+  border-radius: 35px;
 }

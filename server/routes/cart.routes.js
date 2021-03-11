@@ -63,7 +63,7 @@ router.get("/notification", authJwt, async (req, res) => {
     } else if (cart && cart.active) {
       message = `You have open cart form ${moment(cart.createAt).format(
         "YYYY-MM-DD"
-      )} with Subtotal of ${totalSum}`;
+      )} with Subtotal of ${totalSum}$`;
     }
 
     res.status(200).send({ notification: message });

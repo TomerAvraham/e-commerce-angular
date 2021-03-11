@@ -36,7 +36,10 @@ export class AdminEditPanelComponent implements OnInit, OnChanges {
 
   name = new FormControl('', [Validators.required]);
 
-  price = new FormControl(0, [Validators.required]);
+  price = new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[0-9]*$'),
+  ]);
 
   image = new FormControl('', [Validators.required]);
 
@@ -44,7 +47,10 @@ export class AdminEditPanelComponent implements OnInit, OnChanges {
 
   add_name = new FormControl('', [Validators.required]);
 
-  add_price = new FormControl(0, [Validators.required]);
+  add_price = new FormControl('', [
+    Validators.required,
+    Validators.pattern('^[0-9]*$'),
+  ]);
 
   add_image = new FormControl('', [Validators.required]);
 

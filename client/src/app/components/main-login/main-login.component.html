@@ -1,4 +1,5 @@
 <div class="main-login-container">
+  <mat-spinner *ngIf="authService.loading"></mat-spinner>
   <form
     [formGroup]="loginForm"
     (ngSubmit)="handleLoginSubmit()"
@@ -63,7 +64,7 @@
       </button>
       <button
         mat-raised-button
-        style="color: var(--orange)"
+        style="color: var(--orange); border-radius: 35px"
         routerLink="/register"
       >
         Sign Up

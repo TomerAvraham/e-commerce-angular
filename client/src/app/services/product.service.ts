@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Category } from '../interfaces/category';
 import { Product } from '../interfaces/product';
 import { SnackBarService } from './snack-bar.service';
+import { BASE_URL } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { SnackBarService } from './snack-bar.service';
 export class ProductService {
   constructor(private http: HttpClient, private snackBar: SnackBarService) {}
 
-  private ENDPOINT: String = 'http://localhost:5000/api/product/';
+  private ENDPOINT: String = `${BASE_URL}product/`;
 
   public activeTab: any = true;
   public categories: Category[] = [];

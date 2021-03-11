@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -35,9 +34,8 @@ import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
 import { ProductService } from './services/product.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { AuthGuard } from './guards/auth.guard';
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { OrderViewComponent } from './views/order-view/order-view.component';
@@ -82,6 +80,7 @@ import { AdminEditPanelComponent } from './components/admin-edit-panel/admin-edi
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatProgressSpinnerModule,
     MatButtonModule,
     HttpClientModule,
     MatStepperModule,

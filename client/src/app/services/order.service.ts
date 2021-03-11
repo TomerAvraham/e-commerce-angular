@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CartService } from './cart.service';
 import { SnackBarService } from './snack-bar.service';
+import { BASE_URL } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class OrderService {
     private snackBar: SnackBarService
   ) {}
 
-  private ENDPOINT: String = 'http://localhost:5000/api/order/';
+  private ENDPOINT: String = `${BASE_URL}order/`;
 
   public success: Boolean = false;
   public order: String = '';

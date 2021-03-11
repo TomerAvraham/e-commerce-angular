@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwIfEmpty } from 'rxjs/operators';
 import { Product } from '../interfaces/product';
 import { ProductService } from './product.service';
 import { SnackBarService } from './snack-bar.service';
+import { BASE_URL } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class AdminService {
     private snackbarService: SnackBarService
   ) {}
 
-  ENDPOINT = 'http://localhost:5000/api/admin/';
+  ENDPOINT = `${BASE_URL}admin/`;
 
   public editProduct: Product;
   public isAddProductClick: Boolean = false;

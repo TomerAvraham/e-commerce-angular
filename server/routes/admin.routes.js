@@ -6,11 +6,11 @@ const Product = require("../models/product.model");
 router.put("/update/:productId", authJwt, isAdmin, async (req, res) => {
   try {
     const { productId } = req.params;
-    const { _id, name, price, image, category } = req.body;
+    const { name, price, image, category } = req.body;
 
-    await Product.updateOne(
+    await Product.updateMany(
       { _id: productId },
-      { _id, name, price, image, category }
+      { name, price, image, category }
     );
 
     const products = await Product.find();
